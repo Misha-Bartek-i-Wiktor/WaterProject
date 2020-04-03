@@ -66,6 +66,7 @@ def menu():
     elif choose == 2:
         showHistory()
     elif choose == 3:
+        print('Bye!')
         exit(0)
 
 
