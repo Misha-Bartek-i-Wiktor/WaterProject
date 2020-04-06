@@ -1,5 +1,7 @@
 import mysql.connector
 #connection to our remotemysql
+import sql as sql
+
 WaterConnect = mysql.connector.connect(user='UhpGjwrwo6', password='KeeBeGzEFX',
                               host='remotemysql.com',
                               database='UhpGjwrwo6')
@@ -16,7 +18,6 @@ def welcome(name): #function that say hi to user and asks for a name, if it does
 
 name = input('Enter Your name: ')
 welcome(name)
-
 
 def addLiquid(): #function that adds liquid and saves it into table in database
     print('1 - Water')
@@ -44,10 +45,14 @@ def addLiquid(): #function that adds liquid and saves it into table in database
 
 
 def showHistory(): #function that shows a history
-    sql = "SELECT * FROM " + name + " order by date desc"
+    userdate = input("""Choose the date of the day you want to see how much you drank. 
+In format YYYY-MM-DD: """)
+
+    sql = "SELECT SUM(howMuch) FROM " + name + " WHERE date >= '" + userdate + " 00:00:00' AND date <= '" + userdate + " 23:59:59'"
     mycursor.execute(sql)
     for x in mycursor:
-        print(str(x[0]), str(x[1]), str(x[2]) + ' ml')
+        print("\nThat day you drank:", x[0], "ml")
+
 
 
 
