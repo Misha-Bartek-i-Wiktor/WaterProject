@@ -1,14 +1,14 @@
 import mysql.connector
 #connection to our remotemysql
-import sql as sql
 
 WaterConnect = mysql.connector.connect(user='UhpGjwrwo6', password='KeeBeGzEFX',
-                              host='remotemysql.com',
-                              database='UhpGjwrwo6')
+                                       host='remotemysql.com',
+                                       database='UhpGjwrwo6')
 
 mycursor = WaterConnect.cursor()
 
 def welcome(name): #function that say hi to user and asks for a name, if it doesnt exists - creates a table in database
+
     sql = "CREATE TABLE IF NOT EXISTS " + name + " (date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , " \
                                                  "liquid VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ," \
                                                  " howMuch INT(50) UNSIGNED NOT NULL ) ENGINE = InnoDB;"
@@ -44,17 +44,15 @@ def addLiquid(): #function that adds liquid and saves it into table in database
         exit(0)
 
 
-def showHistory(): #function that shows a history
-    userdate = input("""Choose the date of the day you want to see how much you drank. 
-In format YYYY-MM-DD: """)
+def showHistory(): #function that shows a history from date which is chosen by user
+
+    userdate = input('Choose the date of the day you want to see how much you drank.\n'
+                     'In format YYYY-MM-DD: ')
 
     sql = "SELECT SUM(howMuch) FROM " + name + " WHERE date >= '" + userdate + " 00:00:00' AND date <= '" + userdate + " 23:59:59'"
     mycursor.execute(sql)
     for x in mycursor:
         print("\nThat day you drank:", x[0], "ml")
-
-
-
 
 def menu(): #main function which is looped
     print('What can I do?: ')
