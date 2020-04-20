@@ -44,15 +44,37 @@ def addLiquid(): #function that adds liquid and saves it into table in database
         exit(0)
 
 
+import datetime
+helpdate = datetime.datetime.now()
+date = helpdate.strftime("%Y-%m-%d")
+
 def showHistory(): #function that shows a history from date which is chosen by user
 
-    userdate = input('Choose the date of the day you want to see how much you drank.\n'
-                     'In format YYYY-MM-DD: ')
 
-    sql = "SELECT SUM(howMuch) FROM " + name + " WHERE date >= '" + userdate + " 00:00:00' AND date <= '" + userdate + " 23:59:59'"
+    sql = "SELECT SUM(howMuch) FROM " + name + " WHERE date >= '" + date + " 00:00:00' AND date <= '" + date + " 23:59:59'"
     mycursor.execute(sql)
     for x in mycursor:
-        print("\nThat day you drank:", x[0], "ml")
+        print("\nHi.You drank today:", x[0], "ml\n")
+
+
+    while True:
+        print('\nDo you want to see a story from another day? Enter "yes" or "no."')
+        a = input()
+        if a == 'yes':
+            userdate = input('Choose the date of the day you want to see how much you drank.\n'
+                             'In format YYYY-MM-DD: ')
+
+            sql = "SELECT SUM(howMuch) FROM " + name + " WHERE date >= '" + userdate + " 00:00:00' AND date <= '" + userdate + " 23:59:59'"
+            mycursor.execute(sql)
+            for x in mycursor:
+                print("\nThat day you drank:", x[0], "ml")
+
+        elif a == "no":
+            print('I go to the menu.')
+            break
+        else:
+            print('Wrong answer. Enter again.')
+
 
 def menu(): #main function which is looped
     print('What can I do?: ')
