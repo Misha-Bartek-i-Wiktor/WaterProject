@@ -59,6 +59,7 @@ def showHistory(): #function that shows a history from date which is chosen by u
 
     while True:
         print('\nDo you want to see a story from another day? Enter "yes" or "no."')
+
         a = input()
         if a == 'yes':
             userdate = input('Choose the date of the day you want to see how much you drank.\n'
@@ -72,6 +73,7 @@ def showHistory(): #function that shows a history from date which is chosen by u
         elif a == "no":
             print('I go to the menu.')
             break
+
         else:
             print('Wrong answer. Enter again.')
 
