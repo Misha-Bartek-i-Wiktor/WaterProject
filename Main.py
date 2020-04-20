@@ -1,4 +1,5 @@
 import mysql.connector
+import datetime
 #connection to our remotemysql
 
 WaterConnect = mysql.connector.connect(user='UhpGjwrwo6', password='KeeBeGzEFX',
@@ -43,10 +44,8 @@ def addLiquid(): #function that adds liquid and saves it into table in database
         print('Bye!')
         exit(0)
 
-
-import datetime
-helpdate = datetime.datetime.now()
-date = helpdate.strftime("%Y-%m-%d")
+helpdate = datetime.datetime.now() #just a temporary variable
+date = helpdate.strftime("%Y-%m-%d") #variable saves current date to show it by default when user calls addLiquid function
 
 def showHistory(): #function that shows a history from date which is chosen by user
 
@@ -54,14 +53,14 @@ def showHistory(): #function that shows a history from date which is chosen by u
     sql = "SELECT SUM(howMuch) FROM " + name + " WHERE date >= '" + date + " 00:00:00' AND date <= '" + date + " 23:59:59'"
     mycursor.execute(sql)
     for x in mycursor:
-        print("\nHi.You drank today:", x[0], "ml\n")
+        print('\nIn total, you drank:', x[0], 'ml of liquid today.')
 
 
     while True:
-        print('\nDo you want to see a story from another day? Enter "yes" or "no."')
+        print('\nDo you want to see a history from another day? Enter Y (Yes) or N (No).')
 
         a = input()
-        if a == 'yes':
+        if a == 'Y' or a== 'y':
             userdate = input('Choose the date of the day you want to see how much you drank.\n'
                              'In format YYYY-MM-DD: ')
 
@@ -70,12 +69,13 @@ def showHistory(): #function that shows a history from date which is chosen by u
             for x in mycursor:
                 print("\nThat day you drank:", x[0], "ml")
 
-        elif a == "no":
-            print('I go to the menu.')
+
+        elif a == "N" or a == 'n':
+            print('Turning back to the menu.')
             break
 
         else:
-            print('Wrong answer. Enter again.')
+            print('Wrong symbol. Please, try again.')
 
 
 def menu(): #main function which is looped
@@ -96,7 +96,7 @@ def menu(): #main function which is looped
 
 while True:
     menu()
-    print('\n')
+    #print('\n')
 
 
 
