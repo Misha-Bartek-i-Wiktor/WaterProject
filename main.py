@@ -14,7 +14,9 @@ def pretty_print(liquids):
 
 
 def welcome_user():  # function that say hi to user and asks for a name, if it doesnt exists - creates a table in database
+
     name = input('Enter Your name: ')
+    print('Welcome ' + name + '!')
     user = User(name)
 
     sql = "CREATE TABLE IF NOT EXISTS " + user.name + " (date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, " \
